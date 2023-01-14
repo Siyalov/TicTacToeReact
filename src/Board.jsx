@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import Ctx from "./Ctx";
+import Ctx from "./context/Ctx1";
+
 import Card from "./Card";
 
 export default function Board() {

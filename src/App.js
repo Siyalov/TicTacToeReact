@@ -1,85 +1,24 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Game1 from "./pages/Game1";
+import Game2 from "./pages/Game2";
+import Game3 from "./pages/Game3";
 import './App.css';
-import Ctx from './Ctx';
-import Board from "./Board"
+
 
 function App() {
-  const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
-  const [player, setPlayer] = useState(true);
-  const [cnt, updCnt] = useState(board.length);
-  const [win, setWin] = useState(false);
-  const setCnt = (n) => {
-    if (n) {
-      updCnt(n);
-    } else {
-      updCnt(cnt - 1);
-    }
-  }
-  useEffect(() => {
-    // let upd = false;
-    if (cnt === 0 && window.confirm('Ходов больше нет. Запустить игру с начала?')) {
-      setBoard(["", "", "", "", "", "", "", "", ""]);
-      setCnt(board.length);
-    }
-  }, [cnt]);
-
-  useEffect(() => {
-    if (win && window.alert(`${player ? "X" : "O"} выиграл!`)) {
-      setBoard(["", "", "", "", "", "", "", "", ""]);
-      setCnt(board.length);
-    }
-  }, [win]);
-
-
-  useEffect(() => {
-    let b = [...board];
-    let p;
-    if (b[0] && b[0] === b[1] && b[0] === b[2]) {
-      p = b[0] === "x";
-      setPlayer(p);
-      setWin(true);
-    } else if (b[3] && b[3] === b[4] && b[3] === b[5]) {
-      p = b[3] === "x";
-      setPlayer(p);
-      setWin(true);
-    } else if (b[6] && b[6] === b[7] && b[6] === b[8]) {
-      p = b[6] === "x";
-      setPlayer(p);
-      setWin(true);
-    } else if (b[0] && b[0] === b[3] && b[0] === b[6]) {
-      p = b[0] === "x";
-      setPlayer(p);
-      setWin(true);
-    } else if (b[1] && b[1] === b[4] && b[1] === b[7]) {
-      p = b[1] === "x";
-      setPlayer(p);
-      setWin(true);
-    } else if (b[2] && b[2] === b[5] && b[2] === b[8]) {
-      p = b[2] === "x";
-      setPlayer(p);
-      setWin(true);
-    } else if (b[0] && b[0] === b[4] && b[0] === b[8]) {
-      p = b[0] === "x";
-      setPlayer(p);
-      setWin(true);
-    } else if (b[2] && b[2] === b[4] && b[2] === b[6]) {
-      p = b[2] === "x";
-      setPlayer(p);
-      setWin(true);
-    }
-  }, [board]);
-
-
-  return <Ctx.Provider value={{
-    board: board, 
-    setBoard: setBoard,
-    player: player,
-    setPlayer: setPlayer,
-    cnt: cnt,
-    setCnt: setCnt
-  }}>
-    <Board/>
-  </Ctx.Provider>
+  return <BrowserRouter>
+  
+  <ul>
+    <li><Link to="/game1">Крестики нолики</Link></li>
+    <li><Link to="/game2">Судоку</Link></li>
+    <li><Link to="/game3">Крестики нолики</Link></li>
+  </ul>
+    <Routes>
+      <Route path="/game1" element={<Game1/>}/>
+      <Route path="/game2" element={<Game2/>}/>
+      <Route path="/game3" element={<Game3/>}/>
+    </Routes>
+  </BrowserRouter>
 }
 
 export default App;
